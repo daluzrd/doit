@@ -1,0 +1,23 @@
+.categoryCard {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  height: 100%;
+
+  padding: 0.5rem;
+
+  background-color: var(--gray-100);
+
+  input {
+    border: none;
+    border-bottom: 1px solid var(--gray-800);
+    border-radius: 0;
+    margin-bottom: 0.5rem;
+
+    background-color: var(--gray-100);
+
+    padding: 0.5rem;
+  }
+}

@@ -1,6 +1,6 @@
 .app {
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: calc(20% - 1rem) calc(80% - 1rem);
   gap: 2rem;
 
   .form {
