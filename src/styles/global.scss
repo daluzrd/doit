@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #fdfdfd;
+
+  --gray-200: #afb2b1;
+  --gray-500: #808080;
+  --gray-800: #282828;
+
+  --green: #009000;
+}
+
+@media (max-width: 1080px) {
+  html {
+    font-size: 93.75%;
+  }
+}
+@media (max-width: 720) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+body {
+  background-color: var(--gray-800);
+  color: var(--white);
+}
+
+input,
+select,
+textarea,
+button,
+p {
+  font: 400 1rem Roboto, sans-serif;
+  color: var(--gray-800);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+  font-weight: 700;
+  font-family: Roboto, sans-serif;
+  color: var(--white);
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+button {
+  cursor: pointer;
+}
