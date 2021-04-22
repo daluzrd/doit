@@ -1,4 +1,7 @@
-export default class Task{
-    constructor(title: string, description: string){
-    }
+export default class Task {
+	task!: string;
+
+	constructor(task: string) {
+		this.task = task;
+	}
 }
