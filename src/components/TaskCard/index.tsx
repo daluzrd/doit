@@ -1,30 +1,31 @@
 import React from "react";
+import { ReactComponent as DeleteSVG } from "../../assets/img/delete.svg";
 import Task from "../../models/Task";
 import styles from "./taskCard.module.scss";
 
 type TaskCardProps = {
-  handleDeleteTask: (id: number) => void;
-  task: Task;
+	handleDeleteTask: (id: number) => void;
+	task: Task;
 };
 
 export default function TaskCard(props: TaskCardProps) {
-  const task: Task = props.task;
+	const task: Task = props.task;
 
-  const _handleDeleteTask = (): void => {
-    props.handleDeleteTask(task.id);
-  };
+	const _handleDeleteTask = (): void => {
+		props.handleDeleteTask(task.id);
+	};
 
-  return (
-    <li className={styles.taskCard}>
-      <button
-        onClick={(event) => {
-          event.preventDefault();
-          _handleDeleteTask();
-        }}
-      >
-        X
-      </button>
-      <p>{task.task}</p>
-    </li>
-  );
+	return (
+		<li className={styles.taskCard}>
+			<button
+				onClick={(event) => {
+					event.preventDefault();
+					_handleDeleteTask();
+				}}
+			>
+				<DeleteSVG />
+			</button>
+			<p>{task.task}</p>
+		</li>
+	);
 }

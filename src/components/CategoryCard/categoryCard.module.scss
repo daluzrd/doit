@@ -1,15 +1,17 @@
 .categoryCard {
 	display: flex;
 	flex-direction: column;
+	gap: 0.5rem;
 
 	align-items: center;
 
-	height: 100%;
+	height: fit-content;
+	max-height: calc(100% - 2rem);
 	width: calc(100% - 1rem);
 
 	margin-right: 1rem;
 
-	padding: 1rem;
+	padding: 2rem;
 
 	background-color: var(--gray-100);
 
@@ -18,22 +20,31 @@
 		background: var(--gray-100);
 
 		align-self: flex-end;
+
+		font-size: 0;
+
+		cursor: pointer;
 	}
 
 	> form > input {
 		border: none;
-		border-bottom: 1px solid var(--gray-800);
+		border-bottom: 1px solid var(--purple-600);
 		border-radius: 0;
 		margin-bottom: 0.5rem;
 
 		background-color: var(--gray-100);
 
 		padding: 0.5rem;
-		width: 23.75rem;
+		width: 12rem;
 
-		font-size: 2rem;
+		font-size: 1.5rem;
 
 		overflow: visible;
 		overflow-wrap: break-word;
+
+		&:focus {
+			outline: 2px solid var(--purple-600);
+			border: none;
+		}
 	}
 }

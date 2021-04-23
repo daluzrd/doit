@@ -8,6 +8,14 @@
 	}
 
 	> select,
+	> textarea,
+	> button {
+		&:focus-within {
+			outline: 2px solid var(--purple-600);
+		}
+	}
+
+	> select,
 	> textarea {
 		margin-bottom: 0.5rem;
 		border: none;
@@ -23,10 +31,9 @@
 	}
 
 	> button {
-		background-color: var(--green);
+		background-color: var(--purple-600);
 
 		border: none;
-		border-radius: 0.2rem;
 
 		padding: 0.5rem;
 

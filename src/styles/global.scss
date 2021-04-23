@@ -1,7 +1,10 @@
 * {
 	margin: 0;
 	padding: 0;
+
 	box-sizing: border-box;
+
+	transition: 100ms;
 }
 
 :root {
@@ -12,6 +15,8 @@
 	--gray-200: #afb2b1;
 	--gray-500: #808080;
 	--gray-800: #282828;
+
+	--purple-600: #9a30fa;
 
 	--green: #009000;
 }
@@ -30,6 +35,8 @@
 body {
 	background-color: var(--gray-800);
 	color: var(--white);
+
+	height: 100vh;
 }
 
 input,

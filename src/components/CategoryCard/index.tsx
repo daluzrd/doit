@@ -1,66 +1,95 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Category from "../../models/Category";
+import { ReactComponent as DeleteSVG } from "../../assets/img/delete.svg";
 import Task from "../../models/Task";
 import TaskList from "../TaskList";
 import styles from "./categoryCard.module.scss";
 
 type CategoryCardProps = {
-  category: Category;
-  taskList: Task[];
-  handleChangeCategoryTitle: (id: number, title: string) => void;
-  handleDeleteCategory: (id: number) => void;
-  handleDeleteTask: (id: number) => void;
+	category: Category;
+	taskList: Task[];
+	handleAddCategory: () => void;
+	handleChangeCategoryTitle: (
+		id: number,
+		title: string,
+		isNew: boolean
+	) => void;
+	handleDeleteCategory: (id: number) => void;
+	handleDeleteTask: (id: number) => void;
 };
 
 export default function CategoryCard(props: CategoryCardProps) {
-  const id = props.category.id;
-  const [title, setTitle] = useState(props.category.title);
+	const id = props.category.id;
+	const [title, setTitle] = useState(props.category.title);
+	let isNew = props.category.isNew;
 
-  const _handleChangeTitle = (value: string) => {
-    setTitle(value);
-  };
+	const _handleChangeTitle = (value: string): void => setTitle(value);
 
-  const _handleDeleteCategory = () => props.handleDeleteCategory(id);
+	const _handleDeleteCategory = () => props.handleDeleteCategory(id);
 
-  const changeTitle = (): void => {
-    props.handleChangeCategoryTitle(id, title);
-  };
+	const _handleInputBlurOrSubmit = (): void => {
+		if (title === "") {
+			if (isNew) _handleDeleteCategory();
+			else setTitle(props.category.title);
+			return;
+		} else {
+			changeTitle();
+		}
+	};
 
-  return (
-    <li className={styles.categoryCard}>
-      <button
-        type="button"
-        onClick={(event) => {
-          event.preventDefault();
-          _handleDeleteCategory();
-        }}
-      >
-        X
-      </button>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          changeTitle();
-        }}
-      >
-        <input
-          value={title}
-          onChange={(event) => {
-            event.preventDefault();
-            _handleChangeTitle(event.target.value);
-          }}
-          onBlur={(event) => {
-            event.preventDefault();
-            changeTitle();
-          }}
-        />
-      </form>
-      <TaskList
-        idCategory={props.category.id}
-        taskList={props.taskList}
-        handleDeleteTask={props.handleDeleteTask}
-      />
-    </li>
-  );
+	const changeTitle = (): void => {
+		if (isNew) {
+			isNew = false;
+			props.handleAddCategory();
+		}
+		props.handleChangeCategoryTitle(id, title, isNew);
+	};
+
+	useEffect(() => {
+		let element: NodeListOf<HTMLInputElement> = document.querySelectorAll(
+			".categoryTitle"
+		);
+		if (element.length > 0 && element[element.length - 1].value === "") {
+			element[element.length - 1].focus();
+		}
+	}, []);
+
+	return (
+		<li className={styles.categoryCard}>
+			<button
+				type="button"
+				onClick={(event) => {
+					event.preventDefault();
+					_handleDeleteCategory();
+				}}
+			>
+				<DeleteSVG />
+			</button>
+			<form
+				onSubmit={(event) => {
+					event.preventDefault();
+					event.stopPropagation();
+					if (title !== "") _handleInputBlurOrSubmit();
+				}}
+			>
+				<input
+					className="categoryTitle"
+					value={title}
+					onChange={(event) => {
+						event.preventDefault();
+						_handleChangeTitle(event.target.value);
+					}}
+					onBlur={(event) => {
+						event.preventDefault();
+						_handleInputBlurOrSubmit();
+					}}
+				/>
+			</form>
+			<TaskList
+				idCategory={props.category.id}
+				taskList={props.taskList}
+				handleDeleteTask={props.handleDeleteTask}
+			/>
+		</li>
+	);
 }
