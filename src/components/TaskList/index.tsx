@@ -1,21 +1,24 @@
-import { Key } from "node:readline";
 import React from "react";
-import Task from "../../data/Task";
+import Task from "../../models/Task";
 import TaskCard from "../TaskCard";
 import styles from "./taskList.module.scss";
 
-type PropsTaskListType = {
-	taskList: Task[];
+type TaskListProps = {
+  handleDeleteTask: (id: number) => void;
+  idCategory: number;
+  taskList: Task[];
 };
 
-export default function TaskList(props: PropsTaskListType) {
-	const taskList = props.taskList;
-
-	return (
-		<ul className={styles.taskList}>
-			{taskList.map((task: Task, index: number) => {
-				return <TaskCard task={task} key={index} />;
-			})}
-		</ul>
-	);
+export default function TaskList(props: TaskListProps) {
+  return (
+    <ul className={styles.taskList}>
+      {props.taskList
+        .filter((task) => task.idCategoria === props.idCategory)
+        .map((task) => {
+          return (
+            <TaskCard task={task} handleDeleteTask={props.handleDeleteTask} />
+          );
+        })}
+    </ul>
+  );
 }

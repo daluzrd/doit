@@ -1,73 +1,69 @@
 import React, { useEffect, useState } from "react";
 import CategoryList from "./components/CategoryList";
 import Form from "./components/Form";
-import Category from "./data/Category";
-import Task from "./data/Task";
+import CategoryServices from "./services/categoryServices";
+import TaskServices from "./services/taskServices";
 import styles from "./styles/app.module.scss";
 
 function App() {
-	const category = new Category();
-	const [categoryList, setCategoryList] = useState(category.getCategoryList());
+  const categoryServices = new CategoryServices();
+  const taskServices = new TaskServices();
 
-	const handleFormSubmit = (task: Task, id: number): void => {
-		const newCategoryList = categoryList.slice();
-		newCategoryList[id].taskList.push(task);
+  const [categoryList, setCategoryList] = useState(
+    categoryServices.getCategoryList()
+  );
+  const [taskList, setTaskList] = useState(taskServices.getTaskList());
+  const [formWasSubmitted, setFormWasSubmitted] = useState(false);
 
-		category.saveCategoryList(newCategoryList);
-		setCategoryList(category.getCategoryList);
-	};
+  const handleAddCategory = (): void => {
+    setCategoryList(categoryServices.addCategory());
+  };
 
-	const handleNewCategory = (): void => {
-		let id;
+  const handleChangeCategoryTitle = (id: number, title: string): void => {
+    setCategoryList(categoryServices.updateCategory(id, title));
+  };
 
-		if (categoryList.length > 0)
-			id = categoryList[categoryList.length - 1].id + 1;
-		else id = 1;
+  const handleDeleteCategory = (id: number): void => {
+    setCategoryList(categoryServices.deleteCategory(id));
 
-		const newCategory = new Category(id);
-		setCategoryList([...categoryList, newCategory]);
-	};
+    taskList
+      .filter((task) => task.idCategoria === id)
+      .forEach((task) => handleDeleteTask(task.id));
 
-	const handleCategoryCardDelete = (id: number): void => {
-		setCategoryList(
-			categoryList.filter((category, index) => {
-				return index !== id;
-			})
-		);
-	};
+    setTaskList(taskServices.getTaskList());
+  };
 
-	const handleCategoryCardSubmit = (
-		id: number,
-		newCategory: Category
-	): void => {
-		const newCategoryList = categoryList.slice();
-		newCategoryList.splice(id, 1, newCategory);
+  const handleDeleteTask = (id: number): void => {
+    setTaskList(taskServices.deleteTask(id));
+  };
 
-		setCategoryList(newCategoryList);
-		category.saveCategoryList(newCategoryList);
-	};
+  useEffect(() => {
+    if (formWasSubmitted) {
+      setTaskList(taskServices.getTaskList);
+      setFormWasSubmitted(false);
+    }
+  }, [formWasSubmitted]); //eslint-disable-line
 
-	useEffect(() => {
-		console.log(categoryList);
-
-		category.saveCategoryList(categoryList);
-	}, [categoryList]); //eslint-disable-line
-
-	return (
-		<div className={styles.app}>
-			<section className={styles.form}>
-				<Form categoryList={categoryList} handleFormSubmit={handleFormSubmit} />
-			</section>
-			<section className={styles.categoryList}>
-				<CategoryList
-					categoryList={categoryList}
-					handleNewCategory={handleNewCategory}
-					handleCategoryCardDelete={handleCategoryCardDelete}
-					handleCategoryCardSubmit={handleCategoryCardSubmit}
-				/>
-			</section>
-		</div>
-	);
+  return (
+    <div className={styles.app}>
+      <section className={styles.form}>
+        <Form
+          categoryList={categoryList}
+          setFormWasSubmitted={setFormWasSubmitted}
+        />
+      </section>
+      <section className={styles.categoryList}>
+        <CategoryList
+          categoryList={categoryList}
+          handleAddCategory={handleAddCategory}
+          handleDeleteCategory={handleDeleteCategory}
+          handleDeleteTask={handleDeleteTask}
+          handleChangeCategoryTitle={handleChangeCategoryTitle}
+          taskList={taskList}
+        />
+      </section>
+    </div>
+  );
 }
 
 export default App;

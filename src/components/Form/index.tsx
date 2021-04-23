@@ -1,78 +1,74 @@
-import React, { useEffect, useState } from "react";
-import Category from "../../data/Category";
-import Task from "../../data/Task";
+import React, { useState } from "react";
+import Category from "../../models/Category";
+import TaskServices from "../../services/taskServices";
 import style from "./form.module.scss";
 
-type formProps = {
-	categoryList: Category[];
-	handleFormSubmit: (task: Task, id: number) => void;
+type FormProps = {
+  categoryList: Category[];
+  setFormWasSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function Form(props: formProps) {
-	const categoryList = props.categoryList;
+export default function Form(props: FormProps) {
+  const categoryList = props.categoryList;
+  const taskServices = new TaskServices();
 
-	const [category, setCategory] = useState(0);
-	const [title, setTitle] = useState("");
-	const [isSubmitted, setIsSubmitted] = useState(false);
+  const [idCategory, setIdCategory] = useState(1);
+  const [task, setTask] = useState("");
 
-	function _handleChangeCategory(value: number) {
-		setCategory(value);
-	}
+  const _handleSubmit = (): void => {
+    debugger;
+    if (categoryList.length > 0) {
+      taskServices.addTask(task, idCategory);
+      props.setFormWasSubmitted(true);
+    } else console.log("Selecione uma categoria");
+  };
 
-	function _handleChangeTitle(value: string): void {
-		setTitle(value);
-	}
+  const _handleChangeIdCategoria = (value: number): void => {
+    setIdCategory(value);
+  };
 
-	function _handleSubmit(): void {
-		setIsSubmitted(true);
-	}
+  const _handleChangeTitle = (value: string): void => {
+    setTask(value);
+  };
 
-	useEffect(() => {
-		if (isSubmitted && categoryList.length > 0) {
-			debugger;
-			props.handleFormSubmit(new Task(title), category);
-			setIsSubmitted(false);
-		}
-	}, [isSubmitted]); //eslint-disable-line
+  return (
+    <form
+      className={style.form}
+      onSubmit={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        _handleSubmit();
+      }}
+    >
+      <label htmlFor="categories">Categorias</label>
+      <select
+        name="categories"
+        onChange={(event) => {
+          event.preventDefault();
+          _handleChangeIdCategoria(Number(event.target.value));
+        }}
+      >
+        {categoryList.map((category) => {
+          return (
+            <option key={`category${category.id}`} value={category.id}>
+              {category.title}
+            </option>
+          );
+        })}
+      </select>
 
-	return (
-		<form
-			className={style.form}
-			onSubmit={(event) => {
-				event.preventDefault();
-				event.stopPropagation();
-				_handleSubmit();
-			}}
-		>
-			<label htmlFor="categories">Categorias</label>
-			<select
-				name="categories"
-				onChange={(event) => {
-					event.preventDefault();
-					_handleChangeCategory(event.target.selectedIndex);
-				}}
-			>
-				{categoryList.map((category: Category, index: number) => {
-					return (
-						<option key={index} value={index}>
-							{category.title}
-						</option>
-					);
-				})}
-			</select>
+      <label htmlFor="title">Tarefa</label>
+      <textarea
+        name="title"
+        value={task}
+        rows={5}
+        onChange={(event) => {
+          event.preventDefault();
+          _handleChangeTitle(event.target.value);
+        }}
+      ></textarea>
 
-			<label htmlFor="title">Tarefa</label>
-			<textarea
-				name="title"
-				value={title}
-				rows={5}
-				onChange={(event) => {
-					event.preventDefault();
-					_handleChangeTitle(event.target.value);
-				}}
-			></textarea>
-
-			<button type="submit">Cadastrar</button>
-		</form>
-	);
+      <button type="submit">Cadastrar</button>
+    </form>
+  );
 }

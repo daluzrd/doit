@@ -1,65 +1,66 @@
-import React, { useEffect, useState } from "react";
-import Category from "../../data/Category";
-import Task from "../../data/Task";
+import React, { useState } from "react";
+import Category from "../../models/Category";
+import Task from "../../models/Task";
 import TaskList from "../TaskList";
 import styles from "./categoryCard.module.scss";
 
-type PropsCategoryCardType = {
-	title: string;
-	taskList: Task[];
-	id: number;
-	handleCategoryCardDelete: (id: number) => void;
-	handleCategoryCardSubmit: (id: number, newCategory: Category) => void;
+type CategoryCardProps = {
+  category: Category;
+  taskList: Task[];
+  handleChangeCategoryTitle: (id: number, title: string) => void;
+  handleDeleteCategory: (id: number) => void;
+  handleDeleteTask: (id: number) => void;
 };
 
-export default function CategoryCard(props: PropsCategoryCardType) {
-	const id = props.id;
-	const [title, setTitle] = useState(props.title);
-	const taskList = props.taskList;
+export default function CategoryCard(props: CategoryCardProps) {
+  const id = props.category.id;
+  const [title, setTitle] = useState(props.category.title);
 
-	const _handleCategoryCardDelete = (): void => {
-		props.handleCategoryCardDelete(id);
-	};
+  const _handleChangeTitle = (value: string) => {
+    setTitle(value);
+  };
 
-	const _handleCategoryChangeTitle = (value: string) => {
-		setTitle(value);
-	};
+  const _handleDeleteCategory = () => props.handleDeleteCategory(id);
 
-	const _handleCategoryCardSubmit = (): void => {
-		props.handleCategoryCardSubmit(id, new Category(id, title, taskList));
-	};
+  const changeTitle = (): void => {
+    props.handleChangeCategoryTitle(id, title);
+  };
 
-	return (
-		<li key={id} className={styles.categoryCard}>
-			<button
-				type="button"
-				onClick={(event) => {
-					event.preventDefault();
-					_handleCategoryCardDelete();
-				}}
-			>
-				X
-			</button>
-			<form
-				onSubmit={(event) => {
-					event.preventDefault();
-					event.stopPropagation();
-					_handleCategoryCardSubmit();
-				}}
-			>
-				<input
-					value={title}
-					onChange={(event) => {
-						event.preventDefault();
-						_handleCategoryChangeTitle(event.target.value);
-					}}
-					onBlur={(event) => {
-						event.preventDefault();
-						_handleCategoryCardSubmit();
-					}}
-				/>
-			</form>
-			<TaskList taskList={taskList} />
-		</li>
-	);
+  return (
+    <li className={styles.categoryCard}>
+      <button
+        type="button"
+        onClick={(event) => {
+          event.preventDefault();
+          _handleDeleteCategory();
+        }}
+      >
+        X
+      </button>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          changeTitle();
+        }}
+      >
+        <input
+          value={title}
+          onChange={(event) => {
+            event.preventDefault();
+            _handleChangeTitle(event.target.value);
+          }}
+          onBlur={(event) => {
+            event.preventDefault();
+            changeTitle();
+          }}
+        />
+      </form>
+      <TaskList
+        idCategory={props.category.id}
+        taskList={props.taskList}
+        handleDeleteTask={props.handleDeleteTask}
+      />
+    </li>
+  );
 }
