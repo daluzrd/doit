@@ -1,26 +1,30 @@
 .categoryList {
-	display: flex;
+  display: flex;
 
-	padding: 2.2rem 1.5rem;
+  padding: 2.2rem 1.5rem;
 
-	gap: 1rem;
+  gap: 1rem;
 
-	height: calc(100vh - 3rem);
+  height: calc(100vh - 3rem);
 
-	> button {
-		height: 2rem;
-		width: 2rem;
+  > button {
+    height: 2rem;
+    width: 2rem;
 
-		border: none;
+    border: none;
 
-		border-radius: 0;
+    border-radius: 0;
 
-		background-color: var(--gray-100);
+    background-color: var(--gray-100);
 
-		color: var(--purple-600);
-	}
+    color: var(--purple-600);
 
-	> ul {
-		display: flex;
-	}
+    &:hover {
+      filter: brightness(0.95);
+    }
+  }
+
+  > ul {
+    display: flex;
+  }
 }
