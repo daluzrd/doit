@@ -1,5 +1,5 @@
+import { ReactComponent as Delete } from "../../assets/icons/delete_black.svg";
 import React from "react";
-import { ReactComponent as DeleteSVG } from "../../assets/img/delete.svg";
 import Task from "../../models/Task";
 import styles from "./taskCard.module.scss";
 
@@ -23,7 +23,7 @@ export default function TaskCard(props: TaskCardProps) {
 					_handleDeleteTask();
 				}}
 			>
-				<DeleteSVG />
+				<Delete />
 			</button>
 			<p>{task.task}</p>
 		</li>

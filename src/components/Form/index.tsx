@@ -19,9 +19,11 @@ export default function Form(props: FormProps) {
 
 	const _handleSubmit = (): void => {
 		if (categoryList.length > 0) {
-			taskServices.addTask(task, idCategory);
-			props.setFormWasSubmitted(true);
-			setTask("");
+			if (task !== "") {
+				taskServices.addTask(task, idCategory);
+				props.setFormWasSubmitted(true);
+				setTask("");
+			} else document.querySelector(".form > textarea")?.classList.add("Error");
 		} else console.log("Selecione uma categoria");
 	};
 

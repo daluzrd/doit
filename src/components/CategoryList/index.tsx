@@ -1,9 +1,9 @@
 import React from "react";
+import { ReactComponent as Add } from "../../assets/icons/add_black.svg";
 import Category from "../../models/Category";
 import CategoryCard from "../CategoryCard";
 import Task from "../../models/Task";
 import styles from "./categoryList.module.scss";
-import AddIcon from "@material-ui/icons/Add";
 
 type CategoryListProps = {
 	categoryList: Category[];
@@ -44,7 +44,7 @@ export default function CategoryList(props: CategoryListProps) {
 					props.handleAddCategory();
 				}}
 			>
-				+
+				<Add />
 			</button>
 		</section>
 	);
