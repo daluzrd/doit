@@ -1,22 +1,22 @@
 .taskList {
-	width: 100%;
-	height: 100%;
-	gap: 1rem;
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
 
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-	overflow: auto;
+  overflow: auto;
 
-	padding: 0 0.5rem;
+  padding: 0 0.5rem;
 
-	&::-webkit-scrollbar {
-		width: 5px;
-		height: 100%;
-		background-color: transparent;
-	}
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 100%;
+    background-color: transparent;
+  }
 
-	&::-webkit-scrollbar-thumb {
-		background: var(--purple-600);
-	}
+  &::-webkit-scrollbar-thumb {
+    background: var(--purple-600);
+  }
 }
