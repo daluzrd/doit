@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Category from "../../models/Category";
 import TaskServices from "../../services/taskServices";
 import style from "./form.module.scss";
@@ -23,7 +23,7 @@ export default function Form(props: FormProps) {
 				taskServices.addTask(task, idCategory);
 				props.setFormWasSubmitted(true);
 				setTask("");
-			} else document.querySelector(".form > textarea")?.classList.add("Error");
+			}
 		} else console.log("Selecione uma categoria");
 	};
 
@@ -34,6 +34,10 @@ export default function Form(props: FormProps) {
 	const _handleChangeTitle = (value: string): void => {
 		setTask(value);
 	};
+
+	useEffect(() => {
+		if (categoryList.length > 0) setIdCategory(categoryList[0].id);
+	}, [categoryList]);
 
 	return (
 		<form
