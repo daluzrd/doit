@@ -1,52 +1,54 @@
 .form {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
 
-  > label {
-    margin-bottom: 0.2rem;
-  }
+	> label {
+		margin-bottom: 0.2rem;
+	}
 
-  > select,
-  > textarea,
-  > button {
-    &:focus-within {
-      outline: 2px solid var(--purple-600);
-    }
-  }
+	> select,
+	> textarea,
+	> button {
+		&:focus-within {
+			outline: 2px solid var(--purple-600);
+		}
+	}
 
-  > select,
-  > textarea {
-    margin-bottom: 0.5rem;
-    border: none;
-    border-radius: 0;
+	> select,
+	> textarea {
+		margin-bottom: 0.5rem;
+		border: none;
+		border-radius: 0;
 
-    background-color: var(--gray-100);
+		background-color: var(--gray-100);
 
-    height: fit-content;
+		height: fit-content;
 
-    padding: 0.5rem;
+		padding: 0.5rem;
 
-    resize: none;
+		resize: none;
 
-    &:hover {
-      filter: brightness(0.95);
-    }
-  }
+		&:hover {
+			filter: brightness(0.95);
+		}
+	}
 
-  > button {
-    background-color: var(--purple-600);
+	> button {
+		background-color: var(--purple-600);
 
-    border: none;
+		border: none;
 
-    padding: 0.5rem;
+		padding: 0.5rem;
 
-    color: var(--white);
+		color: var(--white);
 
-    font-weight: 700;
+		font-weight: 700;
 
-    &:hover {
-      filter: brightness(0.95);
-    }
-  }
+		&:hover {
+			filter: brightness(0.95);
+
+			transform: scale(1.02);
+		}
+	}
 }

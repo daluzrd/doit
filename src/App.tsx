@@ -49,29 +49,27 @@ function App() {
 	}, [formWasSubmitted]); //eslint-disable-line
 
 	return (
-		<>
-			<div className={styles.app}>
-				<section id={"form"} className={styles.form}>
-					<Form
-						categoryList={categoryList}
-						setFormWasSubmitted={setFormWasSubmitted}
-					/>
-				</section>
-				<section className={styles.categoryList}>
-					<CategoryList
-						categoryList={categoryList}
-						handleAddCategory={handleAddCategory}
-						handleDeleteCategory={handleDeleteCategory}
-						handleDeleteTask={handleDeleteTask}
-						handleChangeCategoryTitle={handleChangeCategoryTitle}
-						taskList={taskList}
-					/>
-				</section>
-				<button className={"backtrackingButton"}>
-					<a href="#form">{"<"}</a>
-				</button>
-			</div>
-		</>
+		<div className={styles.app}>
+			<section id={"form"} className={styles.form}>
+				<Form
+					categoryList={categoryList}
+					setFormWasSubmitted={setFormWasSubmitted}
+				/>
+			</section>
+			<section className={styles.categoryList}>
+				<CategoryList
+					categoryList={categoryList}
+					handleAddCategory={handleAddCategory}
+					handleDeleteCategory={handleDeleteCategory}
+					handleDeleteTask={handleDeleteTask}
+					handleChangeCategoryTitle={handleChangeCategoryTitle}
+					taskList={taskList}
+				/>
+			</section>
+			<button className={"backtrackingButton"}>
+				<a href="#form">{"<"}</a>
+			</button>
+		</div>
 	);
 }
 
