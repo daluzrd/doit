@@ -73,7 +73,7 @@ export default function Form(props: FormProps) {
 				}}
 				onKeyUp={(event) => {
 					event.preventDefault();
-					if (event.ctrlKey && event.key === "Enter") _handleSubmit();
+					if (!event.shiftKey && event.key === "Enter") _handleSubmit();
 				}}
 			></textarea>
 

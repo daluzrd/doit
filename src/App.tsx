@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dragAndDropTask from "./assets/utils/dragAndDropTask";
 import CategoryList from "./components/CategoryList";
 import Form from "./components/Form";
 import CategoryServices from "./services/categoryServices";
@@ -47,6 +48,10 @@ function App() {
 			setFormWasSubmitted(false);
 		}
 	}, [formWasSubmitted]); //eslint-disable-line
+
+	useEffect(() => {
+		new dragAndDropTask().addEvents();
+	});
 
 	return (
 		<div className={styles.app}>
