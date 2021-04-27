@@ -16,7 +16,11 @@ export default function TaskCard(props: TaskCardProps) {
 	};
 
 	return (
-		<li className={styles.taskCard}>
+		<li
+			className={styles.taskCard + " taskCard"}
+			draggable={true}
+			data-id={`task${props.task.id}`}
+		>
 			<button
 				onClick={(event) => {
 					event.preventDefault();

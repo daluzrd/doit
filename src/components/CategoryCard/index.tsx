@@ -55,7 +55,10 @@ export default function CategoryCard(props: CategoryCardProps) {
 	}, []);
 
 	return (
-		<li className={styles.categoryCard}>
+		<li
+			className={styles.categoryCard + " categoryCard"}
+			data-id={`category${id}`}
+		>
 			<button
 				type="button"
 				onClick={(event) => {
