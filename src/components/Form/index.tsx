@@ -9,16 +9,13 @@ type FormProps = {
 };
 
 export default function Form(props: FormProps) {
-	const categoryList = props.categoryList.filter(
-		(category) => category.title !== ""
-	);
 	const taskServices = new TaskServices();
 
 	const [idCategory, setIdCategory] = useState(1);
 	const [task, setTask] = useState("");
 
 	const _handleSubmit = (): void => {
-		if (categoryList.length > 0) {
+		if (props.categoryList.length > 0) {
 			if (task !== "") {
 				taskServices.addTask(task, idCategory);
 				props.setFormWasSubmitted(true);
@@ -36,8 +33,8 @@ export default function Form(props: FormProps) {
 	};
 
 	useEffect(() => {
-		if (categoryList.length > 0) setIdCategory(categoryList[0].id);
-	}, [categoryList]);
+		if (props.categoryList.length > 0) setIdCategory(props.categoryList[0].id);
+	}, [props.categoryList]);
 
 	return (
 		<form
@@ -56,7 +53,7 @@ export default function Form(props: FormProps) {
 					_handleChangeIdCategoria(Number(event.target.value));
 				}}
 			>
-				{categoryList.map((category) => {
+				{props.categoryList.map((category) => {
 					return (
 						<option key={`category${category.id}`} value={category.id}>
 							{category.title}
