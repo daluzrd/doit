@@ -27,12 +27,12 @@ export default class dragAndDropTask {
 	}
 
 	handleDragOver(event: Event, categoryCard: HTMLElement) {
-		const taskCard = document.querySelector(".isDragging");
+		const taskCard: HTMLElement | null = document.querySelector(".isDragging");
 
-		if (taskCard)
-			categoryCard.childNodes[categoryCard.childNodes.length - 1].appendChild(
-				taskCard
-			);
+		if (taskCard) {
+			categoryCard.style.background = "red";
+			taskCard.style.display = "none";
+		}
 
 		event.preventDefault();
 	}

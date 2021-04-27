@@ -18,16 +18,17 @@ export default class taskServices {
 		this._count++;
 	}
 
-	alterCategoryId(id: number, idCategoria: number) {
+	alterCategoryId(id: number, idCategoria: number): Task[] {
 		const localStorageTaskList: Task[] = this.getTaskList();
 
 		localStorageTaskList.forEach((task) => {
 			if (task.id === id) {
 				task.idCategoria = idCategoria;
 				this._saveTaskList(localStorageTaskList);
-				return;
+				return localStorageTaskList;
 			}
 		});
+		return localStorageTaskList;
 	}
 
 	deleteTask(id: number): Task[] {
