@@ -4,32 +4,32 @@ import Task from "../../models/Task";
 import styles from "./taskCard.module.scss";
 
 type TaskCardProps = {
-	handleDeleteTask: (id: number) => void;
-	task: Task;
+  handleDeleteTask: (id: number) => void;
+  task: Task;
 };
 
 export default function TaskCard(props: TaskCardProps) {
-	const task: Task = props.task;
+  const task: Task = props.task;
 
-	const _handleDeleteTask = (): void => {
-		props.handleDeleteTask(task.id);
-	};
+  const _handleDeleteTask = (): void => {
+    props.handleDeleteTask(task.id);
+  };
 
-	return (
-		<li
-			className={styles.taskCard + " taskCard"}
-			draggable={true}
-			data-id={`task${props.task.id}`}
-		>
-			<button
-				onClick={(event) => {
-					event.preventDefault();
-					_handleDeleteTask();
-				}}
-			>
-				<Delete />
-			</button>
-			<p>{task.task}</p>
-		</li>
-	);
+  return (
+    <li
+      className={styles.taskCard + " taskCard"}
+      draggable={true}
+      data-id={`category${props.task.idCategoria} task${props.task.id} ${props.task.task}`}
+    >
+      <button
+        onClick={(event) => {
+          event.preventDefault();
+          _handleDeleteTask();
+        }}
+      >
+        <Delete />
+      </button>
+      <p>{task.task}</p>
+    </li>
+  );
 }
